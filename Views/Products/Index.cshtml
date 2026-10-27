@@ -1,0 +1,52 @@
+﻿@model IEnumerable<InventoryManagement.Models.Product>
+
+@{
+    ViewData["Title"] = "Inventory List";
+}
+
+<h2>Inventory Management</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add New Product</a>
+</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.ProductId</td>
+                <td>@product.ProductName</td>
+                <td>@product.Quantity</td>
+                <td>@product.Price</td>
+                <td>@product.Category</td>
+                <td>
+                    <a asp-action="Edit"
+                       asp-route-id="@product.ProductId"
+                       class="btn btn-warning">Edit</a>
+
+                    <form asp-action="Delete"
+                          asp-route-id="@product.ProductId"
+                          method="post"
+                          style="display:inline">
+                        <button type="submit"
+                                class="btn btn-danger"
+                                onclick="return confirm('Delete this product?');">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
